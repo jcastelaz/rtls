@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Remote Tank Level Sensor by jcastelaz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Remote Tank Level Sensor</h1>
+      <h2 class="project-tagline">Wifi sensor for measuring and recording tank fill level</h2>
+      <a href="https://github.com/jcastelaz/rtls" class="btn">View on GitHub</a>
+      <a href="https://github.com/jcastelaz/rtls/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/jcastelaz/rtls/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="remote-tank-level-sensor-20" class="anchor" href="#remote-tank-level-sensor-20" aria-hidden="true"><span class="octicon octicon-link"></span></a>Remote Tank Level Sensor 2.0</h1>
+
+<p>Jim Castelaz. January 2016.</p>
+
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>The Remote Tank Level Sensor (RTLS) is a system of hardware and software which records and reports how much water is in a water tank. It includes a distance sensor mounted in the top of the tank which is connected to a small microcontroller via cable. The microcontroller reads the distance measurement from the sensor and then transmits that measurement over wireless internet to a server which stores the measurement with capabilities for graphical and tabular display of historical data. Also, the measurement is compared against alert levels and sends an alert SMS if the water level is low. In addition to this alert SMS, there are a few other SMS commands and responses that the system can receive and respond to. This document provides a non-technical overview of the system. A more detailed System Specification is written separately.</p>
+
+<h2>
+<a id="the-hardware" class="anchor" href="#the-hardware" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Hardware</h2>
+
+<p>The RTLS consists of a sensor from Maxbotix ($270) and an Electric Imp microcontroller ($50). These are the main pieces of hardware. Appropriate waterproof connectors for the wires are sourced from Amphenol and are the bulk of the remaining hardware cost, which also includes cable tie-downs, jam nuts for the sensor, header and connector for the Electric Imp, and plastic project box and mounting screws (~$50). Total project budget: $370.</p>
+
+<h2>
+<a id="the-software" class="anchor" href="#the-software" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Software</h2>
+
+<p>The software performs the following functions:</p>
+
+<ul>
+<li> Remote upgrade of software without physical sensor access.</li>
+<li> Read the sensor measurement</li>
+<li> Send an error SMS if the sensor measurement is clearly bad. Have a way to turn on and off these error warnings.</li>
+<li> Record sensor measurement at a regular interval (“Period”) which is user-defined, but defaults to every 15 minutes.</li>
+<li> Display historical data from the sensor, processed so that it shows total gallons in the tank (not just distance) as a function of date/time. This should be displayed on a web browser and the length of data displayed should be variable between a month and a single day. A user should be able to look at prior months as well.</li>
+<li> Record and display the time delay between when the sensor took a reading and when that reading was saved.</li>
+<li> Ensure a sensor reading doesn’t get “frozen” and recorded more than once</li>
+<li> If the gallons of the water in the tank drops below a user-prescribed level, send an alert SMS. Send only 1 alert SMS per user-prescribed level, until tank is re-filled. Allow for multiple user-prescribed levels where this happens</li>
+<li> When the tank is re-filled, re-enable all of the alerts so that SMS’s will be sent when the tank is low again</li>
+<li> Receive the following commands via SMS and do the following:
+
+<ul>
+<li> “level” – SMS back the most updated measurement, and how long ago it was taken</li>
+<li> “period=30” – update the period for recording to 30 minutes. This should work with not just 30, but any number from 10 to 1440.</li>
+<li> “enable” – enable error SMS messages</li>
+<li> “disable” – disable error SMS messages</li>
+<li> “help” – SMS back this list of commands</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="timeline" class="anchor" href="#timeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Timeline</h2>
+
+<p>It will take 4-5 weeks to get all the necessary hardware. I already have some hardware and have tested 80% of the software already, so I anticipate that the system will be ready to install within 1-2 weeks of receiving all of the hardware.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/jcastelaz/rtls">Remote Tank Level Sensor</a> is maintained by <a href="https://github.com/jcastelaz">jcastelaz</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-72343430-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
